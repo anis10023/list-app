@@ -9,16 +9,22 @@
     --primary: #f2800d;
     --secondary: #011423;
     --accent: #e90c0c;
+    --gradient: linear-gradient(
+        90deg,
+        var(--primary),
+        var(--accent)
+    );
     --font-family-titles: 'Montserrat', sans-serif;
     --font-family-normal: 'Roboto', sans-serif;
     --lg-font-size: 4.5rem;
     --md-font-size: 2rem;
     --sm-font-size: 1.2rem;
     --btn-curve: 5px;
+    --note-curve: 3px;
     --lg-space: 300px;
     --md-space: 150px;
     --sm-space: 50px;
-    --note-size: 100px;
+    --note-size: 50px;
 }
 
 body {
@@ -83,36 +89,79 @@ header > div {
 /* UTILITY */
 
 .color-effect{
-    background: linear-gradient(120deg, var(--primary), var(--accent));
+    background: var(--gradient);
+    background-size: 400%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: bg-animation 25s infinite alternate;
+}
+
+@keyframes bg-animation {
+    0% {
+        background-position: left;
+    }
+
+    100% {
+        background-position: right;
+    }
 }
 
 /* DOM created */
 
 .notes-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fill , minmax(--note-size, 1fr));
+    margin: var(--sm-space);
+    display: flex;
+    /* height: 100vh;
+    width: 100vw; */
+    flex-wrap: wrap;
+    gap: 50px;
 }
 
 .note-card{
-    padding: 50px;
+    padding: 10px;
     border: var(--primary);
     font-size: var(--sm-font-size);
     color: var(--contrast);
     background-color: var(--contrast);
+    border-radius: var(--note-curve);
+
+    display: grid;
+    grid-template-columns: auto 35px;
+    grid-template-rows: 35px auto;
+    gap: 20px;
+    grid-template-areas: 
+    "ID close"
+    "info info";
 }
 
 .noteID {
+    grid-area: ID;
     font-size: var(--md-font-size);
     color: var(--primary);
 }
 
 .noteInformation{
+    grid-area: info;
+    align-self: start;
     font-size: var(--sm-font-size);
     color: var(--secondary);
+
+    inline-size: 250px;
+    overflow-wrap: break-word;
+
+
 }
 
 .remove-note-btn{
+    grid-area: close;
+    align-self: start;
+
     background-color: lightcoral;
+    padding: 5px 10px;
+    font-size: var(--sm-font-size);
+    transition: all 0.2s;
+}
+
+.remove-note-btn:active {
+    transform: translateY(5px);
 }

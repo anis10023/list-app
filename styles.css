@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --contrast: #f5fafe;
+    --background: #01080f;
+    --primary: #f2800d;
+    --secondary: #011423;
+    --accent: #e90c0c;
+    --font-family-titles: 'Montserrat', sans-serif;
+    --font-family-normal: 'Roboto', sans-serif;
+    --lg-font-size: 4.5rem;
+    --md-font-size: 2rem;
+    --sm-font-size: 1.2rem;
+    --btn-curve: 5px;
+    --lg-space: 300px;
+    --md-space: 150px;
+    --sm-space: 50px;
+    --note-size: 100px;
+}
+
+body {
+    background-color: var(--background);
+}
+
+h1, h2, h3 {
+    font-family: var(--font-family-titles);
+    font-size: var(--lg-font-size);
+    color: var(--contrast)
+}
+
+p {
+    font-family: var(--font-family-normal);
+    font-size: var(--sm-font-size);
+}
+
+button {
+    border: none;
+    padding: 0.6rem 4.5rem;
+    border-radius: var(--btn-curve);
+    font-size: var(--md-font-size);
+}
+
+header {
+    margin: 20px 0 0;
+    display: grid;
+    row-gap: 60px;
+    place-items: center;
+}
+
+header > div {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-note-btn {
+    background-color: var(--primary);
+    color: var(--secondary);
+    transition: all 0.2s;
+}
+
+.add-note-btn:hover{
+    box-shadow: var(--primary);
+}
+
+.add-note-btn:active{
+    transform: translateY(5px);
+}
+
+.note-input{
+    border: none;
+    padding: 10px;
+    width: 250px;
+    resize: none;
+    border-radius: var(--btn-curve);
+    font-size: var(--sm-font-size);
+    color: var(--secondary);
+
+}
+/* UTILITY */
+
+.color-effect{
+    background: linear-gradient(120deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* DOM created */
+
+.notes-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill , minmax(--note-size, 1fr));
+}
+
+.note-card{
+    padding: 50px;
+    border: var(--primary);
+    font-size: var(--sm-font-size);
+    color: var(--contrast);
+    background-color: var(--contrast);
+}
+
+.noteID {
+    font-size: var(--md-font-size);
+    color: var(--primary);
+}
+
+.noteInformation{
+    font-size: var(--sm-font-size);
+    color: var(--secondary);
+}
+
+.remove-note-btn{
+    background-color: lightcoral;
+}

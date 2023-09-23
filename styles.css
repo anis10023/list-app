@@ -10,7 +10,7 @@
     --secondary: #011423;
     --accent: #e90c0c;
     --gradient: linear-gradient(
-        90deg,
+        120deg,
         var(--primary),
         var(--accent)
     );
@@ -50,6 +50,7 @@ button {
 }
 
 header {
+    height: 476px;
     margin: 20px 0 0;
     display: grid;
     row-gap: 60px;
@@ -65,11 +66,13 @@ header > div {
 .add-note-btn {
     background-color: var(--primary);
     color: var(--secondary);
-    transition: all 0.2s;
+    transition: all 0.2s ease-in-out; 
 }
 
 .add-note-btn:hover{
-    box-shadow: var(--primary);
+    background-color: var(--background);
+    border: solid var(--primary) 3px;
+    color: var(--primary);
 }
 
 .add-note-btn:active{
@@ -86,14 +89,17 @@ header > div {
     color: var(--secondary);
 
 }
+
+.note-input::placeholder{
+    font-size: 3rem;
+}
 /* UTILITY */
 
 .color-effect{
     background: var(--gradient);
-    background-size: 400%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: bg-animation 25s infinite alternate;
+    /* animation: bg-animation 25s infinite alternate; */
 }
 
 @keyframes bg-animation {
@@ -159,7 +165,11 @@ header > div {
     background-color: lightcoral;
     padding: 5px 10px;
     font-size: var(--sm-font-size);
-    transition: all 0.2s;
+    transition: all 0.2s ease-in-out;
+}
+
+.remove-note-btn:hover{
+    background-color: rgb(253, 103, 103);
 }
 
 .remove-note-btn:active {

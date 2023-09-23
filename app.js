@@ -3,9 +3,8 @@
 function Note(ID = 0, information = null) {
   const get_id = () => ID;
   const get_information = () => information;
-  const isClicked = false;
 
-  return { ID, information, isClicked, get_id, get_information };
+  return { ID, information, get_id, get_information };
 }
 
 function Library() {
@@ -16,14 +15,14 @@ function Library() {
     },
   ];
 
-  const add_note = (note) => notes.push(note);
+  const add_note = (newNote) => notes.push(newNote);
 
-  const remove_note = (ID) => {
-    notes = notes.filter((note) => note.id !== ID);
+  const remove_note = (identifer) => {
+    notes.splice(library.notes[identifer], 1);
   };
 
-  const get_note = (ID) => {
-    return notes.find((note) => note.id === ID);
+  const get_note = (identifer) => {
+    return notes.find((note) => note.ID === identifer);
   };
 
   return { notes, add_note, remove_note, get_note };
@@ -57,7 +56,8 @@ function update_notes_container() {
 }
 
 function reset_inputs() {
-  noteInput.value = "";
+  noteInput.value.trim();
+  noteInput.value = null;
 }
 
 //^^ Create new note
@@ -72,6 +72,11 @@ function createNoteCard(information, ID) {
   ID_p.classList.add("noteID");
   removeBtn.classList.add("remove-note-btn");
 
+  removeBtn.dataset.unique = `${ID}`;
+  removeBtn.addEventListener("click", (e) =>
+    remove_card(removeBtn.dataset.unique, e)
+  );
+
   information_p.textContent = `${information}`;
   ID_p.textContent = `# ${ID}`;
   removeBtn.textContent = "X";
@@ -80,8 +85,6 @@ function createNoteCard(information, ID) {
   noteCard.appendChild(information_p);
   noteCard.appendChild(ID_p);
   noteCard.appendChild(removeBtn);
-
-  return removeBtn;
 }
 
 //^ Render onto DOM
@@ -98,14 +101,20 @@ const render_note = () => {
   update_notes_container(newNote);
 };
 
-//^ Remove from DOM
-const remove_card = () => {
-  library.remove_note();
+//^ Remove Note from DOM
+const remove_card = (unique, e) => {
+  //   library.notes.splice(library.notes[unique], 1);
+  library.remove_note(unique);
+  e.target.parentElement.remove();
 };
 
 //Event listeners
+const handleKeyboardInput = (e) => {
+  if (e.key === "Enter") render_note();
+};
+
 addNoteBtn.addEventListener("click", (e) => render_note());
-removeBtn.addEventListener("click", (e) => remove_card());
+window.onkeydown = handleKeyboardInput;
 
 //! Displays precoded object in array
 update_notes_container();
